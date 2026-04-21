@@ -1,0 +1,33 @@
+# PayCalc — Canadian Salary & Income Tax Calculator
+
+> https://paycalc.ca
+
+## What is PayCalc?
+PayCalc is a free, bilingual (English/French) Canadian salary and income tax calculator for the 2026 tax year. It helps Canadians estimate their take-home pay after federal and provincial taxes, CPP/QPP, EI, and QPIP deductions.
+
+## Features
+- Salary ↔ hourly rate conversion
+- Federal + provincial tax breakdown for all 13 provinces and territories
+- CPP, CPP2, EI, QPIP deduction calculations
+- Ontario Health Premium and surtax
+- Quebec federal abatement (16.5%)
+- RRSP deduction support
+- Side-by-side province comparison
+- Marginal and effective tax rate display
+- Tax bracket reference tables
+- Minimum wage by province
+
+## Supported Provinces
+Alberta, British Columbia, Manitoba, New Brunswick, Newfoundland and Labrador, Nova Scotia, Northwest Territories, Nunavut, Ontario, Prince Edward Island, Quebec, Saskatchewan, Yukon
+
+## Languages
+- English: https://paycalc.ca/en
+- French: https://paycalc.ca/fr
+
+## Key Pages
+- Home (calculator): /en or /fr
+- Province pages: /en/province/{slug} or /fr/province/{slug}
+- Compare provinces: /en/compare or /fr/compare
+- Tax brackets: /en/tax-brackets or /fr/tax-brackets
+- Minimum wage: /en/minimum-wage or /fr/minimum-wage
+- Guides: /en/guides or /fr/guides
