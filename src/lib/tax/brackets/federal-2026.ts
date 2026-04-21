@@ -1,4 +1,4 @@
-import type { FederalTaxData, CPPData, CPP2Data, EIData, QPIPData } from '../types';
+import type { FederalTaxData, CPPData, CPP2Data, EIData, QPIPData, CorporateTaxData, DividendTaxData } from '../types';
 
 export const FEDERAL_BRACKETS_2026: FederalTaxData = {
   brackets: [
@@ -46,4 +46,24 @@ export const QPIP_2026: QPIPData = {
   maxInsurableEarnings: 98000,
   rate: 0.00494,
   maxPremium: 484.12,
+};
+
+export const CORPORATE_TAX_2026: CorporateTaxData = {
+  federalSmallBusinessRate: 0.09,
+  provincialRates: {
+    AB: 0.02, BC: 0.02, MB: 0.00, NB: 0.025, NL: 0.03,
+    NS: 0.015, NT: 0.02, NU: 0.03, ON: 0.032, PE: 0.01,
+    QC: 0.032, SK: 0.00, YT: 0.00,
+  },
+  smallBusinessLimit: 500000,
+};
+
+export const DIVIDEND_TAX_2026: DividendTaxData = {
+  grossUpRate: 0.15,
+  federalDTC: 0.090301,
+  provincialDTC: {
+    AB: 0.0218, BC: 0.0196, MB: 0.007835, NB: 0.0275, NL: 0.032,
+    NS: 0.015, NT: 0.06, NU: 0.0261, ON: 0.029863, PE: 0.013,
+    QC: 0.0342, SK: 0.02519, YT: 0.0067,
+  },
 };

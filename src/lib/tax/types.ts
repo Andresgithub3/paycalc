@@ -104,3 +104,67 @@ export interface QPIPData {
   rate: number;
   maxPremium: number;
 }
+
+// --- Corporate / Dividend / Structure types ---
+
+export interface CorporateTaxData {
+  federalSmallBusinessRate: number;
+  provincialRates: Record<Province, number>;
+  smallBusinessLimit: number;
+}
+
+export interface DividendTaxData {
+  grossUpRate: number;
+  federalDTC: number;
+  provincialDTC: Record<Province, number>;
+}
+
+export interface CorporateTaxResult {
+  federalTax: number;
+  provincialTax: number;
+  totalTax: number;
+  afterTaxIncome: number;
+  effectiveRate: number;
+}
+
+export interface DividendTaxResult {
+  actualDividend: number;
+  taxableDividend: number;
+  grossUpAmount: number;
+  federalTaxBeforeCredits: number;
+  federalDTC: number;
+  provincialTaxBeforeCredits: number;
+  provincialDTC: number;
+  totalTax: number;
+  netDividend: number;
+  effectiveRate: number;
+}
+
+export interface StructureInput {
+  grossRevenue: number;
+  province: Province;
+  expenseRate: number;
+  taxYear: TaxYear;
+}
+
+export interface StructureResult {
+  type: 'salaried' | 'sole-prop' | 'ccpc-salary' | 'ccpc-dividend' | 'ccpc-optimal';
+  grossRevenue: number;
+  businessIncome: number;
+  businessExpenses: number;
+  corporateTax: number;
+  personalIncomeTax: number;
+  cppContribution: number;
+  cpp2Contribution: number;
+  eiPremium: number;
+  qpipPremium: number;
+  dividendTax: number;
+  dividendCredit: number;
+  totalDeductions: number;
+  netIncome: number;
+  effectiveRate: number;
+  rrspRoom: number;
+  employerCost: number;
+  salaryAmount: number;
+  dividendAmount: number;
+}

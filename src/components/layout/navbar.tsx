@@ -29,6 +29,7 @@ function NavbarInner() {
     { href: '/compare' as const, label: t('compare') },
     { href: '/tax-brackets' as const, label: t('taxBrackets') },
     { href: '/minimum-wage' as const, label: t('minimumWage') },
+    { href: '/income-structure' as const, label: t('incomeStructure') },
     { href: '/guides' as const, label: t('guides') },
   ];
 
