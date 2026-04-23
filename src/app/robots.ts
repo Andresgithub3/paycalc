@@ -6,6 +6,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
+        disallow: [
+          '/*/opengraph-image',
+          '/*/twitter-image',
+          '/*/icon',
+          '/_next/',
+        ],
       },
     ],
     sitemap: 'https://paycalc.ca/sitemap.xml',
