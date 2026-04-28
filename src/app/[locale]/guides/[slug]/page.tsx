@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import type { Metadata } from 'next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Hreflang } from '@/components/layout/hreflang';
 import { JsonLd, breadcrumbSchema } from '@/components/layout/json-ld';
 import { Markdown } from '@/components/markdown';
 import { Link } from '@/i18n/navigation';
@@ -47,7 +46,6 @@ export default function GuidePage({ params }: Props) {
 
   return (
     <>
-      <Hreflang path={`/guides/${slug}`} />
       <JsonLd
         data={breadcrumbSchema(locale, [
           { name: 'PayCalc', url: `/${locale}` },
