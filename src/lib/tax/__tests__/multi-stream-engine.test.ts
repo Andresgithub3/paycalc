@@ -14,6 +14,8 @@ function makeInput(overrides: Partial<MultiStreamInput> = {}): MultiStreamInput 
     otherIncome: 0,
     rrspDeduction: 0,
     selfEmployedEIOpted: false,
+    pensionIncome: 0,
+    isAge65Plus: false,
     ...overrides,
   };
 }
@@ -499,6 +501,123 @@ describe('calculateMultiStreamTax', () => {
       const ineligStream = result.streams.find(s => s.type === 'ineligibleDividends');
       expect(ineligStream?.actualAmount).toBe(5000);
       expect(ineligStream?.taxableAmount).toBe(5750);
+    });
+  });
+
+  // ─── Pension income ───
+  describe('pension income', () => {
+    it('should include pension income in total and taxable income', () => {
+      const result = calculateMultiStreamTax(makeInput({
+        pensionIncome: 30000,
+        province: 'AB',
+      }));
+
+      expect(result.totalIncome).toBe(30000);
+      expect(result.totalTaxableIncome).toBe(30000);
+      // No CPP/EI on pension income
+      expect(result.cppEmployee).toBe(0);
+      expect(result.eiPremium).toBe(0);
+    });
+
+    it('should apply pension income credit for $2,000+ pension income', () => {
+      const result = calculateMultiStreamTax(makeInput({
+        pensionIncome: 30000,
+        province: 'AB',
+      }));
+
+      // Federal pension credit: $2,000 × 0.14 = $280
+      expect(result.pensionCreditFederal).toBe(280);
+      // Provincial (AB): $1,000 × 0.08 = $80
+      expect(result.pensionCreditProvincial).toBe(80);
+    });
+
+    it('should not apply age amount credit when not 65+', () => {
+      const result = calculateMultiStreamTax(makeInput({
+        pensionIncome: 30000,
+        isAge65Plus: false,
+      }));
+
+      expect(result.ageAmountCreditFederal).toBe(0);
+      expect(result.ageAmountCreditProvincial).toBe(0);
+    });
+
+    it('should apply age amount credit when 65+', () => {
+      const result = calculateMultiStreamTax(makeInput({
+        pensionIncome: 30000,
+        isAge65Plus: true,
+        province: 'AB',
+      }));
+
+      // Income $30,000 is below federal clawback threshold $46,432
+      // Federal age credit: $9,208 × 0.14 = $1,289.12
+      expect(result.ageAmountCreditFederal).toBe(1289.12);
+      // Provincial (AB): $6,345 × 0.08 = $507.60
+      expect(result.ageAmountCreditProvincial).toBe(507.60);
+    });
+
+    it('should reduce tax with pension and age credits combined', () => {
+      const withoutPension = calculateMultiStreamTax(makeInput({
+        employmentIncome: 60000,
+        province: 'AB',
+      }));
+
+      const withPension65 = calculateMultiStreamTax(makeInput({
+        employmentIncome: 60000,
+        pensionIncome: 10000,
+        isAge65Plus: true,
+        province: 'AB',
+      }));
+
+      // More income but credits should partially offset the tax
+      // The pension + age credits (280 + 80 + 1289.12 + 507.60 = $2,156.72)
+      // should significantly reduce the marginal impact of the pension income
+      expect(withPension65.totalIncome).toBe(70000);
+      expect(withPension65.pensionCreditFederal).toBe(280);
+      expect(withPension65.ageAmountCreditFederal).toBeGreaterThan(0);
+    });
+
+    it('should apply Quebec deduction reducing taxable income', () => {
+      const result = calculateMultiStreamTax(makeInput({
+        pensionIncome: 30000,
+        province: 'QC',
+      }));
+
+      // QC deduction of $2,000 reduces taxable income
+      expect(result.totalTaxableIncome).toBe(28000); // 30000 - 2000
+      expect(result.pensionCreditProvincial).toBe(0); // QC uses deduction not credit
+    });
+
+    it('should add pension to per-stream analysis', () => {
+      const result = calculateMultiStreamTax(makeInput({
+        employmentIncome: 60000,
+        pensionIncome: 20000,
+        otherIncome: 5000,
+      }));
+
+      expect(result.streams).toHaveLength(3);
+      expect(result.streams.map(s => s.type)).toEqual([
+        'employment', 'pension', 'other'
+      ]);
+
+      const pensionStream = result.streams.find(s => s.type === 'pension');
+      expect(pensionStream?.actualAmount).toBe(20000);
+      expect(pensionStream?.taxableAmount).toBe(20000);
+    });
+
+    it('should clawback age amount at higher income', () => {
+      const result = calculateMultiStreamTax(makeInput({
+        employmentIncome: 50000,
+        pensionIncome: 30000,
+        isAge65Plus: true,
+        province: 'AB',
+      }));
+
+      // Total taxable = $80,000, well above federal threshold $46,432
+      // Federal clawback = (80000 - 46432) * 0.15 = $5,035.20
+      expect(result.ageAmountClawback).toBe(5035.20);
+      // Claimable = $9,208 - $5,035.20 = $4,172.80
+      // Credit = $4,172.80 × 0.14 = $584.19
+      expect(result.ageAmountCreditFederal).toBeCloseTo(584.19, 0);
     });
   });
 

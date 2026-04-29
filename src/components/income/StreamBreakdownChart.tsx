@@ -26,6 +26,7 @@ interface StreamBreakdownChartProps {
 const STREAM_COLORS: Record<string, string> = {
   employment: '#2563EB',          // blue
   selfEmployment: '#7C3AED',     // purple
+  pension: '#0891B2',             // cyan
   capitalGains: '#059669',        // green
   eligibleDividends: '#D97706',   // amber
   ineligibleDividends: '#DC2626', // red
@@ -77,6 +78,7 @@ export function StreamBreakdownChart({ result, province }: StreamBreakdownChartP
   const streamLabels: Record<string, string> = {
     employment: t('income.employmentIncome'),
     selfEmployment: t('income.selfEmploymentIncome'),
+    pension: t('pension.pensionIncome'),
     capitalGains: t('income.capitalGains'),
     eligibleDividends: t('income.eligibleDividends'),
     ineligibleDividends: t('income.ineligibleDividends'),

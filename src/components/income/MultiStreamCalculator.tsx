@@ -96,10 +96,12 @@ export function MultiStreamCalculator() {
       otherIncome: parseFloat(otherIncome) || 0,
       rrspDeduction: parseFloat(rrsp) || 0,
       selfEmployedEIOpted: eiOpted,
+      pensionIncome: 0,
+      isAge65Plus: false,
     };
 
     if (input.employmentIncome + input.selfEmploymentIncome + input.capitalGains +
-        input.eligibleDividends + input.ineligibleDividends + input.otherIncome <= 0) {
+        input.eligibleDividends + input.ineligibleDividends + input.otherIncome + input.pensionIncome <= 0) {
       return null;
     }
 

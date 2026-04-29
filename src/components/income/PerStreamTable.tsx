@@ -17,6 +17,7 @@ export function PerStreamTable({ streams }: PerStreamTableProps) {
   const streamLabels: Record<string, string> = {
     employment: t('employmentIncome'),
     selfEmployment: t('selfEmploymentIncome'),
+    pension: t('pensionIncome'),
     capitalGains: t('capitalGains'),
     eligibleDividends: t('eligibleDividends'),
     ineligibleDividends: t('ineligibleDividends'),

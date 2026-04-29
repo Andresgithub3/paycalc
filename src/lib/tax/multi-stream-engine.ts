@@ -19,6 +19,8 @@ import {
   calculateIneligibleDividendMarginalRate,
 } from './multi-dividends';
 import { calculateTaxableCapitalGains, calculateCapitalGainsMarginalRate } from './capital-gains';
+import { calculatePensionIncomeCredit } from './pension-credit';
+import { calculateAgeAmount } from './age-amount';
 
 /**
  * Multi-stream income tax calculator.
@@ -34,6 +36,7 @@ export function calculateMultiStreamTax(input: MultiStreamInput): MultiStreamRes
     capitalGains, eligibleDividends, ineligibleDividends,
     otherIncome, rrspDeduction,
     selfEmployedEIOpted,
+    pensionIncome, isAge65Plus,
   } = input;
 
   const isQuebec = province === 'QC';
@@ -41,7 +44,8 @@ export function calculateMultiStreamTax(input: MultiStreamInput): MultiStreamRes
   // ─── Step 1: Total actual income (cash received) ───
   const totalIncome = round2(
     employmentIncome + selfEmploymentIncome + capitalGains +
-    eligibleDividends + ineligibleDividends + otherIncome
+    eligibleDividends + ineligibleDividends + otherIncome +
+    pensionIncome
   );
 
   // ─── Step 2: Calculate gross-ups and inclusions ───
@@ -102,7 +106,10 @@ export function calculateMultiStreamTax(input: MultiStreamInput): MultiStreamRes
     : 0;
   const totalQPIP = round2(qpipOnEmployment + qpipOnSelfEmployment);
 
-  // ─── Step 6: Total taxable income ───
+  // ─── Step 6: Pension credits (calculated before taxable income for QC deduction) ───
+  const pensionCredit = calculatePensionIncomeCredit(pensionIncome, province);
+
+  // ─── Step 7: Total taxable income ───
   const taxableIncome = round2(Math.max(0,
     employmentIncome
     + (selfEmploymentIncome - selfEmployedCPPDeduction)
@@ -110,8 +117,13 @@ export function calculateMultiStreamTax(input: MultiStreamInput): MultiStreamRes
     + eligibleGrossUp.taxableAmount
     + ineligibleGrossUp.taxableAmount
     + otherIncome
+    + pensionIncome
+    - pensionCredit.quebecDeduction  // Quebec retirement income deduction
     - rrspDeduction
   ));
+
+  // Age amount (calculated on net income = taxable income for our purposes)
+  const ageAmount = calculateAgeAmount(isAge65Plus, taxableIncome, province);
 
   // ─── Step 7: Federal tax ───
   const federalData = FEDERAL_BRACKETS_2026;
@@ -136,21 +148,27 @@ export function calculateMultiStreamTax(input: MultiStreamInput): MultiStreamRes
   const eligibleDTCFedProv = calculateEligibleDividendCredits(eligibleGrossUp.taxableAmount, province);
   const ineligibleDTCFedProv = calculateIneligibleDividendCredits(ineligibleGrossUp.taxableAmount, province);
 
-  // Apply federal DTCs (cannot reduce federal tax below zero)
+  // Apply federal DTCs and pension/age credits (cannot reduce federal tax below zero)
   const federalTax = round2(Math.max(0,
-    federalTaxBeforeCredits - eligibleDTCFedProv.federalDTC - ineligibleDTCFedProv.federalDTC
+    federalTaxBeforeCredits
+    - eligibleDTCFedProv.federalDTC - ineligibleDTCFedProv.federalDTC
+    - pensionCredit.federalCredit
+    - ageAmount.federalCredit
   ));
 
-  // ─── Step 8: Provincial tax ───
+  // ─── Step 9: Provincial tax ───
   const provResult = calculateProvincialTax(taxableIncome, province, taxYear);
   // provResult.tax includes surtax (Ontario) but we need to subtract DTCs
   // We need the "before DTC" amount, which is provResult.tax (already includes BPA credit and surtax)
 
   const provincialTaxBeforeDTC = provResult.tax;
 
-  // Apply provincial DTCs (cannot reduce provincial tax below zero)
+  // Apply provincial DTCs and pension/age credits (cannot reduce provincial tax below zero)
   const provincialTax = round2(Math.max(0,
-    provincialTaxBeforeDTC - eligibleDTCFedProv.provincialDTC - ineligibleDTCFedProv.provincialDTC
+    provincialTaxBeforeDTC
+    - eligibleDTCFedProv.provincialDTC - ineligibleDTCFedProv.provincialDTC
+    - pensionCredit.provincialCredit
+    - ageAmount.provincialCredit
   ));
 
   const ontarioHealthPremium = provResult.ontarioHealthPremium;
@@ -220,6 +238,12 @@ export function calculateMultiStreamTax(input: MultiStreamInput): MultiStreamRes
     provincialEligibleDTC: eligibleDTCFedProv.provincialDTC,
     provincialIneligibleDTC: ineligibleDTCFedProv.provincialDTC,
 
+    pensionCreditFederal: pensionCredit.federalCredit,
+    pensionCreditProvincial: pensionCredit.provincialCredit,
+    ageAmountCreditFederal: ageAmount.federalCredit,
+    ageAmountCreditProvincial: ageAmount.provincialCredit,
+    ageAmountClawback: ageAmount.federalClawback,
+
     cppEmployee: employmentCPP,
     cppSelfEmployed: selfEmployedCPPTotal,
     cpp2Total,
@@ -249,7 +273,7 @@ function calculatePerStreamAnalysis(
   marginalRates: MultiStreamResult['marginalRates']
 ): StreamAnalysis[] {
   const {
-    employmentIncome, selfEmploymentIncome,
+    employmentIncome, selfEmploymentIncome, pensionIncome,
     capitalGains, eligibleDividends, ineligibleDividends,
     otherIncome, rrspDeduction, selfEmployedEIOpted,
   } = input;
@@ -279,6 +303,9 @@ function calculatePerStreamAnalysis(
   }
   if (selfEmploymentIncome > 0) {
     stackItems.push({ type: 'selfEmployment', actualAmount: selfEmploymentIncome, taxableAmount: round2(selfEmploymentIncome - seDeduction) });
+  }
+  if (pensionIncome > 0) {
+    stackItems.push({ type: 'pension', actualAmount: pensionIncome, taxableAmount: pensionIncome });
   }
   if (otherIncome > 0) {
     stackItems.push({ type: 'other', actualAmount: otherIncome, taxableAmount: otherIncome });
@@ -326,6 +353,7 @@ function calculatePerStreamAnalysis(
     switch (item.type) {
       case 'employment':
       case 'selfEmployment':
+      case 'pension':
       case 'other':
         streamMarginalRate = round4(marginalRates.ordinary * 100);
         break;
@@ -385,7 +413,7 @@ function calculateIncomeTaxOnly(
 
   // Apply DTCs based on which dividend streams are included up to this point
   // We need to figure out how much DTC applies at this point in the stack
-  const stackOrder: StreamAnalysis['type'][] = ['employment', 'selfEmployment', 'other', 'capitalGains', 'eligibleDividends', 'ineligibleDividends'];
+  const stackOrder: StreamAnalysis['type'][] = ['employment', 'selfEmployment', 'pension', 'other', 'capitalGains', 'eligibleDividends', 'ineligibleDividends'];
   const currentIndex = stackOrder.indexOf(currentStreamType);
 
   let fedDTC = 0;

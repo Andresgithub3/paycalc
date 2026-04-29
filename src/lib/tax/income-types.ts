@@ -18,6 +18,11 @@ export interface MultiStreamInput {
 
   /** Whether self-employed person opted into EI Special Benefits (default: false) */
   selfEmployedEIOpted: boolean;
+
+  /** Pension income from RPP, RRIF, annuity (not CPP/OAS/GIS) */
+  pensionIncome: number;
+  /** Whether the individual is 65+ at December 31 */
+  isAge65Plus: boolean;
 }
 
 /**
@@ -42,6 +47,13 @@ export interface MultiStreamResult {
   provincialEligibleDTC: number;
   provincialIneligibleDTC: number;
 
+  // Pension & age credits
+  pensionCreditFederal: number;   // pension income tax credit (federal)
+  pensionCreditProvincial: number; // pension income tax credit (provincial)
+  ageAmountCreditFederal: number;  // age amount credit (federal)
+  ageAmountCreditProvincial: number; // age amount credit (provincial)
+  ageAmountClawback: number;       // federal clawback amount (for display)
+
   // Payroll deductions
   cppEmployee: number;           // employment CPP (employee portion)
   cppSelfEmployed: number;       // self-employment CPP (both portions)
@@ -64,7 +76,7 @@ export interface MultiStreamResult {
 }
 
 export interface StreamAnalysis {
-  type: 'employment' | 'selfEmployment' | 'capitalGains' | 'eligibleDividends' | 'ineligibleDividends' | 'other';
+  type: 'employment' | 'selfEmployment' | 'pension' | 'capitalGains' | 'eligibleDividends' | 'ineligibleDividends' | 'other';
   actualAmount: number;
   taxableAmount: number;
   effectiveRate: number;         // percentage
