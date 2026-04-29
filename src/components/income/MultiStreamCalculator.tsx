@@ -20,12 +20,16 @@ import { formatCurrency, formatPercent } from '@/lib/format';
 import type { Province, TaxYear } from '@/lib/tax';
 import type { MultiStreamInput } from '@/lib/tax/income-types';
 import { calculateMultiStreamTax } from '@/lib/tax/multi-stream-engine';
+import { calculatePensionSplitting } from '@/lib/tax/pension-splitting';
 
 import { IncomeInputCard } from './IncomeInputCard';
+import { PensionIncomeCard } from './PensionIncomeCard';
+import { AgeRetirementSection } from './AgeRetirementSection';
 import { StreamBreakdownTable } from './StreamBreakdownTable';
 import { StreamBreakdownChart } from './StreamBreakdownChart';
 import { PerStreamTable } from './PerStreamTable';
 import { MarginalRateComparison } from './MarginalRateComparison';
+import { PensionSplittingCard } from './PensionSplittingCard';
 
 const PROVINCES: Province[] = [
   'AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT',
@@ -52,6 +56,17 @@ export function MultiStreamCalculator() {
   const [otherIncome, setOtherIncomeRaw] = useState(searchParams.get('other') || '');
   const [rrsp, setRrspRaw] = useState(searchParams.get('rrsp') || '');
   const [eiOpted, setEiOptedRaw] = useState(searchParams.get('ei_opted') === '1');
+
+  // ─── Pension & age state ───
+  const [pension, setPensionRaw] = useState(searchParams.get('pension') || '');
+  const [age65, setAge65Raw] = useState(searchParams.get('age65') === '1');
+  const [splitEnabled, setSplitEnabledRaw] = useState(searchParams.get('split') === '1');
+  const [splitPct, setSplitPctRaw] = useState(searchParams.get('split_pct') || '50');
+  const [spouseIncome, setSpouseIncomeRaw] = useState(searchParams.get('spouse_income') || '');
+  const [spouseProvince, setSpouseProvinceRaw] = useState<Province>(
+    (searchParams.get('spouse_province') as Province) || province
+  );
+  const [spouseAge65, setSpouseAge65Raw] = useState(searchParams.get('spouse_age65') === '1');
 
   // ─── URL sync ───
   const updateURL = useCallback(
@@ -83,30 +98,52 @@ export function MultiStreamCalculator() {
   const setRrsp = (v: string) => { setRrspRaw(v); updateURL({ rrsp: v }); };
   const setEiOpted = (v: boolean) => { setEiOptedRaw(v); updateURL({ ei_opted: v ? '1' : '' }); };
 
-  // ─── Calculate result ───
-  const result = useMemo(() => {
-    const input: MultiStreamInput = {
-      province,
-      taxYear,
-      employmentIncome: parseFloat(employment) || 0,
-      selfEmploymentIncome: parseFloat(selfEmployment) || 0,
-      capitalGains: parseFloat(capitalGains) || 0,
-      eligibleDividends: parseFloat(eligibleDiv) || 0,
-      ineligibleDividends: parseFloat(ineligibleDiv) || 0,
-      otherIncome: parseFloat(otherIncome) || 0,
-      rrspDeduction: parseFloat(rrsp) || 0,
-      selfEmployedEIOpted: eiOpted,
-      pensionIncome: 0,
-      isAge65Plus: false,
-    };
+  const setPension = (v: string) => { setPensionRaw(v); updateURL({ pension: v }); };
+  const setAge65 = (v: boolean) => { setAge65Raw(v); updateURL({ age65: v ? '1' : '' }); };
+  const setSplitEnabled = (v: boolean) => { setSplitEnabledRaw(v); updateURL({ split: v ? '1' : '' }); };
+  const setSplitPct = (v: string) => { setSplitPctRaw(v); updateURL({ split_pct: v }); };
+  const setSpouseIncome = (v: string) => { setSpouseIncomeRaw(v); updateURL({ spouse_income: v }); };
+  const setSpouseProvince = (v: Province) => { setSpouseProvinceRaw(v); updateURL({ spouse_province: v }); };
+  const setSpouseAge65 = (v: boolean) => { setSpouseAge65Raw(v); updateURL({ spouse_age65: v ? '1' : '' }); };
 
+  // ─── Calculate result ───
+  const pensionValue = parseFloat(pension) || 0;
+
+  const multiStreamInput: MultiStreamInput = useMemo(() => ({
+    province,
+    taxYear,
+    employmentIncome: parseFloat(employment) || 0,
+    selfEmploymentIncome: parseFloat(selfEmployment) || 0,
+    capitalGains: parseFloat(capitalGains) || 0,
+    eligibleDividends: parseFloat(eligibleDiv) || 0,
+    ineligibleDividends: parseFloat(ineligibleDiv) || 0,
+    otherIncome: parseFloat(otherIncome) || 0,
+    rrspDeduction: parseFloat(rrsp) || 0,
+    selfEmployedEIOpted: eiOpted,
+    pensionIncome: pensionValue,
+    isAge65Plus: age65,
+  }), [province, taxYear, employment, selfEmployment, capitalGains, eligibleDiv, ineligibleDiv, otherIncome, rrsp, eiOpted, pension, age65]);
+
+  const result = useMemo(() => {
+    const input = multiStreamInput;
     if (input.employmentIncome + input.selfEmploymentIncome + input.capitalGains +
         input.eligibleDividends + input.ineligibleDividends + input.otherIncome + input.pensionIncome <= 0) {
       return null;
     }
-
     return calculateMultiStreamTax(input);
-  }, [province, taxYear, employment, selfEmployment, capitalGains, eligibleDiv, ineligibleDiv, otherIncome, rrsp, eiOpted]);
+  }, [multiStreamInput]);
+
+  // ─── Pension splitting ───
+  const splittingResult = useMemo(() => {
+    if (!splitEnabled || pensionValue <= 0 || !age65) return null;
+    return calculatePensionSplitting({
+      yourInput: multiStreamInput,
+      splitPercentage: (parseFloat(splitPct) || 50) / 100,
+      spouseOtherIncome: parseFloat(spouseIncome) || 0,
+      spouseProvince,
+      spouseIsAge65Plus: spouseAge65,
+    });
+  }, [splitEnabled, pensionValue, age65, multiStreamInput, splitPct, spouseIncome, spouseProvince, spouseAge65]);
 
   return (
     <div className="grid gap-6 lg:grid-cols-[380px_1fr] lg:items-start">
@@ -211,7 +248,29 @@ export function MultiStreamCalculator() {
             onChange={setOtherIncome}
             defaultOpen
           />
+
+          <PensionIncomeCard
+            value={pension}
+            onChange={setPension}
+          />
         </div>
+
+        {/* Age & Retirement */}
+        <AgeRetirementSection
+          isAge65Plus={age65}
+          onAge65Change={setAge65}
+          hasPension={pensionValue > 0}
+          splitEnabled={splitEnabled}
+          onSplitEnabledChange={setSplitEnabled}
+          splitPercentage={splitPct}
+          onSplitPercentageChange={setSplitPct}
+          spouseIncome={spouseIncome}
+          onSpouseIncomeChange={setSpouseIncome}
+          spouseProvince={spouseProvince}
+          onSpouseProvinceChange={setSpouseProvince}
+          spouseAge65={spouseAge65}
+          onSpouseAge65Change={setSpouseAge65}
+        />
 
         {/* RRSP */}
         <IncomeInputCard
@@ -294,6 +353,11 @@ export function MultiStreamCalculator() {
 
             {/* Marginal rate comparison */}
             <MarginalRateComparison marginalRates={result.marginalRates} />
+
+            {/* Pension splitting analysis */}
+            {splittingResult && (
+              <PensionSplittingCard result={splittingResult} />
+            )}
           </>
         ) : (
           <Card>

@@ -45,6 +45,32 @@ export function StreamBreakdownTable({ result, province }: StreamBreakdownTableP
       show: result.provincialIneligibleDTC > 0,
     },
     {
+      label: t('pension.pensionIncomeCreditFederal'),
+      value: result.pensionCreditFederal,
+      isCredit: true,
+      show: result.pensionCreditFederal > 0,
+    },
+    {
+      label: t('pension.pensionIncomeCreditProvincial'),
+      value: result.pensionCreditProvincial,
+      isCredit: true,
+      show: result.pensionCreditProvincial > 0,
+    },
+    {
+      label: result.ageAmountClawback > 0
+        ? `${t('pension.ageAmountCreditFederal')} — ${t('pension.ageAmountClawback')}`
+        : t('pension.ageAmountCreditFederal'),
+      value: result.ageAmountCreditFederal,
+      isCredit: true,
+      show: result.ageAmountCreditFederal > 0,
+    },
+    {
+      label: t('pension.ageAmountCreditProvincial'),
+      value: result.ageAmountCreditProvincial,
+      isCredit: true,
+      show: result.ageAmountCreditProvincial > 0,
+    },
+    {
       label: isQuebec ? t('deductions.qpp') : t('deductions.cpp'),
       value: result.cppEmployee,
       show: result.cppEmployee > 0,
