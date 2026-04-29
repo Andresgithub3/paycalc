@@ -3,6 +3,8 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
+import { Link } from '@/i18n/navigation';
+import { ArrowRight } from 'lucide-react';
 import { SalaryCalculator } from '@/components/calculator/salary-calculator';
 import { Hreflang } from '@/components/layout/hreflang';
 import { JsonLd, organizationSchema, websiteSchema, webApplicationSchema } from '@/components/layout/json-ld';
@@ -55,6 +57,23 @@ export default function HomePage({ params }: Props) {
 
         {/* Calculator */}
         <SalaryCalculator />
+
+        {/* Income Calculator CTA */}
+        <div className="mx-auto mt-10 max-w-2xl rounded-lg border border-border bg-muted/50 p-6 text-center sm:mt-14">
+          <h2 className="text-lg font-semibold text-foreground sm:text-xl">
+            {t('income.ctaTitle')}
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {t('income.ctaDescription')}
+          </p>
+          <Link
+            href="/income"
+            className="mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            {t('income.ctaButton')}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
 
         {/* Disclaimer */}
         <p className="mt-8 text-center text-xs text-muted-foreground">

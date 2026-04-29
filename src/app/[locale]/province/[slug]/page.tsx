@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
+import { ArrowRight } from 'lucide-react';
 import { SalaryCalculator } from '@/components/calculator/salary-calculator';
 import { ProvinceInfoCard } from '@/components/calculator/province-info';
 import { ProvinceFAQ } from '@/components/calculator/province-faq';
@@ -58,6 +61,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default function ProvincePage({ params }: Props) {
   const { locale, slug } = use(params);
   setRequestLocale(locale);
+  const t = useTranslations('income');
 
   const provinceCode = PROVINCE_SLUGS[slug] as Province | undefined;
   if (!provinceCode) notFound();
@@ -89,6 +93,23 @@ export default function ProvincePage({ params }: Props) {
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           <ProvinceInfoCard province={provinceCode} info={info} />
           <ProvinceFAQ province={provinceCode} />
+        </div>
+
+        {/* Income Calculator CTA */}
+        <div className="mx-auto mt-10 max-w-2xl rounded-lg border border-border bg-muted/50 p-6 text-center">
+          <h2 className="text-lg font-semibold text-foreground">
+            {t('ctaTitle')}
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {t('ctaDescription')}
+          </p>
+          <Link
+            href="/income"
+            className="mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            {t('ctaButton')}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </>

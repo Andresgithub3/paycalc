@@ -26,6 +26,7 @@ function NavbarInner() {
 
   const navLinks = [
     { href: '/' as const, label: t('calculator') },
+    { href: '/income' as const, label: t('incomeTypes') },
     { href: '/compare' as const, label: t('compare') },
     { href: '/tax-brackets' as const, label: t('taxBrackets') },
     { href: '/minimum-wage' as const, label: t('minimumWage') },
