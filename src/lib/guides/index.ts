@@ -249,6 +249,363 @@ Use our [minimum wage reference page](/minimum-wage) to see all rates, or enter 
 `,
   },
 
+  {
+    slug: 'how-to-read-your-pay-stub',
+    locale: 'en',
+    title: 'How to Read Your Pay Stub in Canada',
+    description: 'A line-by-line breakdown of every deduction on your Canadian pay stub, from CPP to EI to income tax.',
+    date: '2026-03-15',
+    readTime: '6 min',
+    content: `
+## Why Your Pay Stub Matters
+
+Your pay stub is more than a receipt — it's a detailed record of how your gross pay becomes your net (take-home) pay. Understanding each line helps you catch errors, plan your finances, and know exactly where your money goes.
+
+## Gross Pay
+
+This is your total earnings before any deductions. It may include:
+
+- **Regular pay** — your salary or hourly wages for the pay period
+- **Overtime** — hours worked beyond the standard (usually 1.5× your hourly rate)
+- **Bonuses or commissions** — additional compensation
+- **Vacation pay** — if paid out rather than banked
+
+If you're salaried at $75,000/year, your gross pay on a bi-weekly stub is $75,000 ÷ 26 = **$2,884.62**.
+
+## Statutory Deductions
+
+These are mandatory. Your employer withholds them and remits to the government on your behalf.
+
+### 1. Federal Income Tax
+
+Calculated using Canada's progressive brackets. Your employer estimates your annual tax and divides it across pay periods. At $75,000, expect roughly **$400–$500 per bi-weekly pay** withheld for federal tax, depending on your TD1 personal tax credits.
+
+### 2. Provincial Income Tax
+
+Same concept as federal, but using your province's brackets. This varies significantly — Alberta withholds less than Ontario or Quebec for the same salary.
+
+### 3. CPP (Canada Pension Plan)
+
+- **Rate:** 5.95% on earnings between $3,500 and $74,600
+- **Maximum annual contribution:** $4,230.45
+- At $75,000, you'll hit the max partway through the year. Early paycheques deduct more; late-year ones deduct less or nothing.
+
+### 4. CPP2 (Enhanced CPP)
+
+- **Rate:** 4.0% on earnings between $74,600 and $85,000
+- **Maximum:** $416.00/year
+- Only applies if you earn above $74,600. At $75,000, your CPP2 for the year is just $16.00.
+
+### 5. EI (Employment Insurance)
+
+- **Rate:** 1.63% (or 1.295% in Quebec)
+- **Maximum insurable earnings:** $68,900
+- **Maximum annual premium:** $1,123.07 (or $892.46 in Quebec)
+
+### 6. QPIP (Quebec Only)
+
+If you work in Quebec, you also pay into the **Quebec Parental Insurance Plan** at 0.494% on earnings up to $98,000 (max $484.12/year). This is why Quebec's EI rate is lower — QPIP covers parental benefits instead.
+
+## Voluntary Deductions
+
+These are amounts you've opted into:
+
+- **RRSP contributions** — reduces your taxable income
+- **Pension plan** — employer-sponsored RPP contributions
+- **Union dues** — if applicable
+- **Extended health/dental** — group benefit premiums
+- **Life or disability insurance** — employer group plans
+
+## Year-to-Date (YTD) Totals
+
+Most stubs show cumulative totals for the calendar year. Check these against your T4 slip at tax time — they should match.
+
+## Net Pay
+
+This is what lands in your bank account: **Gross Pay − All Deductions = Net Pay**.
+
+For a $75,000 salary in Ontario, a typical bi-weekly net pay is approximately **$2,170** after all deductions.
+
+## Common Stub Errors to Watch For
+
+1. **Wrong province** — if you moved, your employer may still be using old provincial rates
+2. **Missing TD1 credits** — if you didn't file a TD1 form, your employer may withhold too much tax
+3. **CPP still deducting in December** — if you've already hit the annual max, no more should be deducted
+4. **Incorrect hours** — for hourly workers, verify hours match your records
+
+## Calculate Your Own
+
+Use the [PayCalc calculator](/) to see a full breakdown of deductions for any salary, province, and pay frequency. Compare the numbers to your actual pay stub to make sure everything lines up.
+`,
+  },
+  {
+    slug: 'ontario-surtax-explained',
+    locale: 'en',
+    title: 'Ontario Surtax Explained: The Hidden Provincial Tax',
+    description: 'Understand how Ontario\'s surtax adds 20% and 36% on top of provincial income tax, and at what income levels it kicks in.',
+    date: '2026-04-01',
+    readTime: '5 min',
+    content: `
+## What Is the Ontario Surtax?
+
+Ontario is the only province that charges a **surtax** — an additional tax calculated on top of your basic provincial income tax. It effectively multiplies your provincial tax rate at higher income levels, making Ontario one of the highest-taxed provinces for top earners.
+
+## How It Works
+
+The surtax has two tiers, both based on your **basic provincial tax** (not your income):
+
+| Tier | Threshold | Rate |
+|------|-----------|------|
+| First surtax | Provincial tax exceeds $5,315 | 20% of amount over $5,315 |
+| Second surtax | Provincial tax exceeds $6,802 | 36% of amount over $6,802 |
+
+Both tiers can apply at the same time. If your provincial tax is high enough, you pay both the 20% and the 36% surtax.
+
+## When Does It Kick In?
+
+The surtax thresholds are based on provincial tax, not income. But here's roughly when each tier starts:
+
+- **20% surtax** begins around **$88,000–$92,000** in employment income
+- **36% surtax** begins around **$112,000–$118,000** in employment income
+
+The exact income depends on your credits and deductions.
+
+## Example: $120,000 Salary
+
+Here's how the surtax adds up at $120,000:
+
+1. **Basic Ontario tax:** approximately $7,350 (after applying brackets and BPA credit)
+2. **20% surtax:** ($7,350 − $5,315) × 20% = **$407**
+3. **36% surtax:** ($7,350 − $6,802) × 36% = **$197**
+4. **Total surtax:** $407 + $197 = **$604**
+5. **Total Ontario tax:** $7,350 + $604 = **$7,954**
+
+The surtax adds about 8% to your provincial tax bill at this income level.
+
+## Impact on Marginal Rates
+
+The surtax doesn't just add a flat charge — it multiplies your marginal provincial rate:
+
+| Income Range | Base ON Rate | With Surtax | Combined (Fed + Prov) |
+|---|---|---|---|
+| Under ~$88K | 5.05%–9.15% | No surtax | 19.05%–29.65% |
+| ~$88K–$112K | 9.15% | × 1.20 = 10.98% | 31.48% |
+| ~$112K–$150K | 11.16% | × 1.56 = 17.41% | 37.91% |
+| $150K–$220K | 12.16% | × 1.56 = 18.97% | 39.47% |
+| Over $220K | 13.16% | × 1.56 = 20.53% | 53.53% |
+
+At the highest bracket, the surtax pushes Ontario's effective provincial rate from 13.16% to over 20%.
+
+## Ontario Health Premium Too
+
+On top of the surtax, Ontario also charges a **Health Premium** — a separate levy based on income:
+
+| Income | Health Premium |
+|---|---|
+| Under $20,000 | $0 |
+| $20,001–$36,000 | Up to $300 |
+| $36,001–$48,000 | Up to $450 |
+| $48,001–$72,000 | Up to $600 |
+| $72,001–$200,000 | Up to $750 |
+| Over $200,000 | $900 (maximum) |
+
+Combined with the surtax, these extras can add **$1,500+** to an Ontario taxpayer's bill compared to the same income in a province like Alberta.
+
+## Why Does Ontario Have a Surtax?
+
+The surtax was introduced in the 1990s as a temporary measure to reduce the provincial deficit. It was never repealed. Rather than raising bracket rates directly, the surtax achieves higher effective rates while keeping the base bracket rates looking modest.
+
+## See Your Numbers
+
+Use the [PayCalc calculator](/) with Ontario selected to see exactly how the surtax affects your take-home pay. Compare it to other provinces using the [comparison tool](/compare).
+`,
+  },
+  {
+    slug: 'quebec-tax-differences',
+    locale: 'en',
+    title: 'Quebec Tax Differences: QPIP, QPP, and the Federal Abatement',
+    description: 'Why Quebec pay stubs look different from the rest of Canada — QPP, QPIP, reduced EI, and the 16.5% federal abatement explained.',
+    date: '2026-04-15',
+    readTime: '6 min',
+    content: `
+## Quebec Runs Its Own Tax System
+
+Quebec is unique in Canada: it administers its own income tax through **Revenu Québec** rather than the CRA. This means Quebec residents file two separate tax returns — one federal, one provincial — and their pay stubs have deductions you won't see in any other province.
+
+## Key Differences at a Glance
+
+| Item | Rest of Canada | Quebec |
+|------|---------------|--------|
+| Provincial tax filing | Through CRA | Separate Revenu Québec return |
+| Pension plan | CPP | QPP (Régime de rentes du Québec) |
+| Parental insurance | Included in EI | QPIP (separate premium) |
+| EI rate | 1.63% | 1.295% (reduced) |
+| Federal tax abatement | None | 16.5% reduction |
+| Provincial BPA | Varies | $18,571 |
+
+## QPP: Quebec Pension Plan
+
+Quebec residents contribute to the **QPP** instead of CPP. The rates and thresholds are the same for 2026:
+
+- **Employee rate:** 5.95%
+- **YMPE:** $74,600
+- **Maximum contribution:** $4,230.45
+- **QPP2 rate:** 4.0% on earnings between $74,600 and $85,000
+
+The QPP is administered by Retraite Québec. Your contributions appear as "RRQ" on Quebec pay stubs rather than "CPP."
+
+## QPIP: Quebec Parental Insurance Plan
+
+The rest of Canada funds parental leave benefits through EI. Quebec opted out and created its own program — the **Régime québécois d'assurance parentale (RQAP/QPIP)**.
+
+| | Amount |
+|--|--------|
+| **Max insurable earnings** | $98,000 |
+| **Employee rate** | 0.494% |
+| **Maximum premium** | $484.12/year |
+
+QPIP generally offers more generous parental leave benefits than the federal EI program — higher replacement rates and coverage for self-employed workers.
+
+## Reduced EI Rate
+
+Because QPIP covers parental benefits separately, Quebec workers pay a **reduced EI rate**:
+
+| | Federal EI | Quebec EI |
+|--|-----------|-----------|
+| Rate | 1.63% | 1.295% |
+| Max premium | $1,123.07 | $892.46 |
+
+The difference ($230.61/year at max earnings) partially offsets the cost of QPIP.
+
+## The 16.5% Federal Abatement
+
+This is the most misunderstood part of Quebec taxation. Because Quebec collects its own income tax, the federal government provides a **16.5% abatement** — a reduction on federal tax payable.
+
+**How it works:**
+1. Calculate your federal tax normally (same brackets as everyone else)
+2. Subtract all federal credits (BPA, CEA, etc.)
+3. Reduce the result by 16.5%
+
+For example, if your net federal tax would be $10,000:
+- **Abatement:** $10,000 × 16.5% = $1,650
+- **Federal tax payable:** $10,000 − $1,650 = **$8,350**
+
+This abatement exists because Quebec funds programs (like QPIP and its own tax administration) that the federal government funds in other provinces through federal taxes.
+
+## Quebec's Provincial Tax Brackets (2026)
+
+Quebec has its own bracket structure, independent of federal brackets:
+
+| Bracket | Rate |
+|---------|------|
+| $0 – $53,255 | 14% |
+| $53,255 – $106,510 | 19% |
+| $106,510 – $129,590 | 24% |
+| $129,590+ | 25.75% |
+
+Quebec's lowest rate (14%) is significantly higher than most provinces (Ontario starts at 5.05%, Alberta at 8%). However, the federal abatement and higher BPA ($18,571 vs Ontario's $11,865) offset some of this.
+
+## Net Effect: Is Quebec More Expensive?
+
+At most income levels, Quebec residents pay **more total income tax** than residents of lower-tax provinces like Alberta or BC. However, they receive more services — subsidized daycare, more generous parental leave, lower university tuition, and public drug insurance.
+
+Here's a rough comparison at $80,000:
+
+| Province | Approximate Total Tax + Deductions |
+|----------|----------------------------------|
+| Alberta | ~$19,400 |
+| Ontario | ~$20,800 |
+| British Columbia | ~$20,200 |
+| Quebec | ~$22,100 |
+
+The gap narrows when you factor in the services Quebec provides at no additional cost.
+
+## See the Full Breakdown
+
+Use the [PayCalc calculator](/) and select Quebec to see exactly how QPP, QPIP, reduced EI, and the federal abatement affect your take-home pay.
+`,
+  },
+  {
+    slug: 'working-in-one-province-living-in-another',
+    locale: 'en',
+    title: 'Working in One Province, Living in Another: Tax Implications',
+    description: 'Which province\'s tax rates apply when you live and work in different provinces? A guide to cross-border provincial taxation in Canada.',
+    date: '2026-04-30',
+    readTime: '5 min',
+    content: `
+## The Basic Rule
+
+In Canada, you pay provincial income tax based on **where you live on December 31**, not where you work. This is the single most important rule for cross-province taxation.
+
+If you live in Alberta but commute to Saskatchewan for work, you pay **Alberta's** provincial tax rates. If you live in Ontario but work remotely for a BC company, you pay **Ontario's** rates.
+
+## Why This Matters
+
+Provincial tax rates vary dramatically. The difference in take-home pay between provinces can be thousands of dollars per year:
+
+| Province of Residence | Provincial Tax on $100,000 |
+|---|---|
+| Alberta | ~$6,000 |
+| British Columbia | ~$5,100 |
+| Ontario | ~$6,400 (+ surtax + health premium) |
+| Quebec | ~$11,800 (but with 16.5% federal abatement) |
+
+Living in a lower-tax province while earning income from a higher-tax one can be a significant financial advantage.
+
+## Common Scenarios
+
+### 1. Living in Gatineau, Working in Ottawa
+
+This is one of Canada's most common cross-province arrangements. You live in Quebec but work in Ontario.
+
+- You pay **Quebec** provincial tax (higher rates)
+- You pay federal tax with the **16.5% Quebec abatement**
+- You pay **QPP** instead of CPP, and **QPIP** instead of regular EI parental
+- Your employer should withhold Quebec rates, but some employers mistakenly withhold Ontario rates — check your pay stub
+
+### 2. Living in Alberta, Working Remotely for a Toronto Company
+
+- You pay **Alberta** provincial tax (lower rates)
+- Your employer should set up payroll for Alberta
+- You benefit from Alberta's higher BPA ($22,769 vs Ontario's $11,865) and no surtax or health premium
+- No HST on your purchases either (Alberta has no provincial sales tax)
+
+### 3. Moving Mid-Year
+
+If you move from Ontario to BC on July 1, which province's rates apply? **BC's** — because you're a BC resident on December 31. You file one federal return and one BC provincial return for the entire year.
+
+This can work in your favour if you move from a high-tax to a low-tax province before year-end.
+
+## Payroll Withholding
+
+Your employer is supposed to withhold provincial tax based on your province of residence, not your province of employment. In practice:
+
+- **Correct:** Your employer uses your home address to determine provincial withholding
+- **Common error:** Employer withholds based on office location instead of your address
+- **What to do:** File a TD1 provincial form with your employer to ensure correct withholding
+
+If too much tax was withheld (e.g., Ontario rates instead of Alberta), you'll get a refund when you file your tax return — but it means less cash flow throughout the year.
+
+## Exceptions and Special Cases
+
+### Quebec Employment
+
+If you **work** in Quebec (physically present) but live elsewhere, your employer must still withhold Quebec source deductions (QPP, QPIP). You'll then claim credits on your home province's return to avoid double taxation. This is more complex than other cross-province situations.
+
+### Northern Residents
+
+If you live in a prescribed northern zone (parts of Yukon, NWT, Nunavut, or northern areas of several provinces), you may also claim the **Northern Residents Deduction** on your federal return — a deduction of up to $22/day for living in qualifying areas.
+
+### Self-Employment
+
+Self-employed individuals pay CPP based on their province of residence. There's no cross-province complication — your home province determines everything.
+
+## Key Takeaway
+
+Your December 31 address determines your provincial tax. If you have flexibility in where you live, the tax savings between provinces can be substantial. Use the [PayCalc comparison tool](/compare) to see the exact difference for your salary level.
+`,
+  },
+
   // === FRENCH GUIDES ===
   {
     slug: 'epargne-impot-reer',
@@ -349,6 +706,103 @@ Si vous travaillez au Québec, vous cotisez au **Régime de rentes du Québec (R
 ## Allez-vous récupérer votre argent?
 
 Oui — les cotisations au RPC financent votre pension de retraite. Le montant que vous recevrez dépend de combien et combien de temps vous avez cotisé. Vous pouvez commencer à recevoir le RPC dès l'âge de 60 ans (réduit) ou jusqu'à 70 ans (bonifié).
+`,
+  },
+  {
+    slug: 'alberta-vs-ontario-salaire-net',
+    locale: 'fr',
+    title: 'Alberta vs Ontario : Où gardez-vous le plus?',
+    description: 'Une comparaison détaillée du salaire net entre l\'Alberta et l\'Ontario pour différents niveaux de salaire.',
+    date: '2026-03-15',
+    readTime: '6 min',
+    content: `
+## Le portrait global
+
+L'Alberta et l'Ontario sont les deux plus grandes économies du Canada, mais leurs structures fiscales sont très différentes. L'Alberta est régulièrement classée comme la **province la moins imposée** pour la plupart des niveaux de revenu, tandis que l'Ontario ajoute des couches supplémentaires comme la **contribution-santé de l'Ontario** et une **surtaxe** sur les hauts revenus.
+
+## Différences clés
+
+| Facteur | Alberta | Ontario |
+|---------|---------|---------|
+| Taux provincial le plus bas | 8,0 % | 5,05 % |
+| Taux provincial le plus élevé | 15,0 % | 13,16 % |
+| Montant personnel de base | 22 769 $ | 11 865 $ |
+| Taxe de vente provinciale | Aucune | 8 % (TVH) |
+| Contribution-santé | Aucune | Jusqu'à 900 $/an |
+| Surtaxe | Aucune | Oui (20 % + 36 %) |
+
+## Comparaison du salaire net
+
+Voici combien de plus vous gardez en Alberta à différents niveaux de salaire :
+
+| Salaire | Net en Alberta | Net en Ontario | Avantage Alberta |
+|---------|---------------|---------------|-----------------|
+| 50 000 $ | ~41 200 $ | ~39 800 $ | ~1 400 $ de plus |
+| 75 000 $ | ~58 900 $ | ~56 500 $ | ~2 400 $ de plus |
+| 100 000 $ | ~75 800 $ | ~72 200 $ | ~3 600 $ de plus |
+| 150 000 $ | ~107 700 $ | ~102 100 $ | ~5 600 $ de plus |
+
+## Pourquoi l'Alberta gagne
+
+1. **Aucune taxe de vente provinciale.** Vous économisez 8 % sur pratiquement tout ce que vous achetez.
+2. **Montant personnel de base plus élevé.** Le montant de 22 769 $ de l'Alberta est presque le double de celui de l'Ontario (11 865 $) — ce qui signifie que plus de revenu est complètement exempt d'impôt.
+3. **Taux fixe de 8 % jusqu'à 151 234 $.** La plupart des Albertains ne paient que le taux provincial le plus bas.
+4. **Pas de contribution-santé ni de surtaxe.** L'Ontario ajoute des charges supplémentaires en plus de l'impôt sur le revenu.
+
+## Mais considérez le coût de la vie
+
+Bien que l'avantage fiscal de l'Alberta soit clair, l'Ontario — surtout Toronto — offre souvent des salaires plus élevés pour le même poste. Les coûts de logement varient considérablement selon la ville. Utilisez l'[outil de comparaison PayCalc](/compare) pour calculer vos propres chiffres.
+`,
+  },
+  {
+    slug: 'pourquoi-taux-imposition-different',
+    locale: 'fr',
+    title: "Pourquoi votre taux d'imposition n'est pas ce que vous pensez",
+    description: "Comprenez la différence entre le taux marginal et le taux effectif d'imposition, et pourquoi gagner plus ne signifie jamais gagner moins.",
+    date: '2026-04-30',
+    readTime: '4 min',
+    content: `
+## Le mythe fiscal le plus répandu
+
+Beaucoup de Canadiens croient que s'ils gagnent assez pour entrer dans une tranche d'imposition supérieure, **tout** leur revenu est imposé au taux plus élevé. C'est faux. Le Canada utilise un système d'imposition **progressif** — seul le revenu *à l'intérieur* de chaque tranche est imposé au taux de cette tranche.
+
+## Taux marginal vs taux effectif
+
+- **Taux marginal :** Le taux d'imposition sur votre **prochain** dollar de revenu. C'est le taux de la tranche dans laquelle vous vous trouvez.
+- **Taux effectif :** Le taux **moyen** sur l'ensemble de votre revenu — votre impôt total divisé par votre revenu total.
+
+## Exemple : Salaire de 100 000 $ (fédéral seulement, 2026)
+
+| Tranche | Revenu dans la tranche | Taux | Impôt |
+|---------|----------------------|------|-------|
+| 0 $ – 58 523 $ | 58 523 $ | 14,0 % | 8 193 $ |
+| 58 523 $ – 100 000 $ | 41 477 $ | 20,5 % | 8 503 $ |
+| **Total** | **100 000 $** | | **16 696 $** |
+
+Après le crédit pour montant personnel de base (~2 303 $) et le crédit canadien pour emploi (~210 $), votre impôt fédéral net est d'environ **14 183 $**.
+
+- **Taux marginal :** 20,5 % (la tranche dans laquelle tombe votre revenu)
+- **Taux effectif :** 14,2 % (14 183 $ ÷ 100 000 $)
+
+## Pourquoi gagner plus ne fait jamais mal
+
+Si vous obtenez une augmentation de 5 000 $, passant de 100 000 $ à 105 000 $ :
+- Seuls les 5 000 $ supplémentaires sont imposés à 20,5 %
+- Impôt additionnel : ~1 025 $
+- Vous conservez encore ~3 975 $ de l'augmentation
+
+**Vous gardez toujours la majorité de toute augmentation.** Il n'existe aucun scénario où gagner plus entraîne un salaire net inférieur.
+
+## Taux combinés
+
+N'oubliez pas que vous payez à la fois l'impôt fédéral et provincial. Votre taux marginal combiné est la somme des deux. Par exemple, en Ontario à 100 000 $ :
+- Taux marginal fédéral : 20,5 %
+- Taux marginal Ontario : 9,15 %
+- **Taux marginal combiné : 29,65 %**
+
+Au Québec, le calcul est légèrement différent grâce à l'abattement fédéral de 16,5 %, qui réduit votre impôt fédéral. Votre taux marginal fédéral effectif au Québec serait environ 17,1 % (20,5 % × 0,835), mais le taux provincial québécois est plus élevé (19 % dans la tranche de 100 000 $).
+
+Utilisez le [calculateur PayCalc](/) pour voir vos taux marginaux et effectifs exacts pour tout salaire et toute province.
 `,
   },
 ];
