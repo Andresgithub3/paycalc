@@ -31,6 +31,7 @@ function NavbarInner() {
     { href: '/tax-brackets' as const, label: t('taxBrackets') },
     { href: '/minimum-wage' as const, label: t('minimumWage') },
     { href: '/income-structure' as const, label: t('incomeStructure') },
+    { href: '/contractor' as const, label: t('contractor') },
     { href: '/guides' as const, label: t('guides') },
   ];
 

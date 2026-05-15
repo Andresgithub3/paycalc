@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
 
   // Static pages
-  const staticPages = ['', '/income', '/compare', '/tax-brackets', '/minimum-wage', '/income-structure', '/guides', '/privacy', '/terms'];
+  const staticPages = ['', '/income', '/compare', '/tax-brackets', '/minimum-wage', '/income-structure', '/contractor', '/guides', '/privacy', '/terms'];
 
   for (const locale of locales) {
     for (const page of staticPages) {

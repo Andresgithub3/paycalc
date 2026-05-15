@@ -62,6 +62,9 @@ export function Footer() {
               <Link href="/income-structure" className="text-sm text-muted-foreground hover:text-primary">
                 {t('nav.incomeStructure')}
               </Link>
+              <Link href="/contractor" className="text-sm text-muted-foreground hover:text-primary">
+                {t('nav.contractor')}
+              </Link>
             </div>
           </div>
 

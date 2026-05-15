@@ -8,7 +8,11 @@ export {
   calculateCCPCDividend,
   calculateCCPCOptimal,
   compareAllStructures,
+  solveSalaryFromBudget,
+  totalEmployerCost,
+  evaluateMix,
 } from './structure-compare';
+export { calculateContractorEquivalent } from './contractor';
 export type {
   CalculatorInput,
   TaxBreakdown,
@@ -20,4 +24,6 @@ export type {
   StructureResult,
   CorporateTaxResult,
   DividendTaxResult,
+  ContractorInput,
+  ContractorResult,
 } from './types';

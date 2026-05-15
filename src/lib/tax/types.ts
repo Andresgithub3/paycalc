@@ -140,6 +140,62 @@ export interface DividendTaxResult {
   effectiveRate: number;
 }
 
+export interface ContractorInput {
+  /** Either provide hourlyRate + billableHours OR annualRevenue */
+  hourlyRate?: number;
+  billableHours?: number;
+  annualRevenue?: number;
+  province: Province;
+  expenses: number;           // dollar amount of business expenses
+  salaryPercent: number;      // 0-100, percentage of business income allocated to salary
+  taxYear: TaxYear;
+}
+
+export interface ContractorResult {
+  // Revenue
+  grossRevenue: number;
+  expenses: number;
+  businessIncome: number;
+
+  // Salary side
+  salaryBudget: number;
+  salary: number;
+  salaryPersonalTax: number;
+  salaryCPP: number;
+  salaryCPP2: number;
+  salaryEI: number;
+  salaryQPIP: number;
+  salaryOntarioHealth: number;
+  salaryNet: number;
+
+  // Dividend side
+  dividendBudget: number;
+  corporateTax: number;
+  dividendAmount: number;
+  dividendTax: number;
+  dividendCredit: number;
+  dividendNet: number;
+
+  // Totals
+  contractorNet: number;
+  contractorEffectiveRate: number;
+  contractorRRSP: number;
+
+  // Equivalent employee
+  equivalentSalary: number;
+  employeeFederalTax: number;
+  employeeProvincialTax: number;
+  employeeCPP: number;
+  employeeCPP2: number;
+  employeeEI: number;
+  employeeQPIP: number;
+  employeeOntarioHealth: number;
+  employeeNet: number;
+  employeeEffectiveRate: number;
+  employeeRRSP: number;
+  equivalentHourly: number;
+}
+
 export interface StructureInput {
   grossRevenue: number;
   province: Province;

@@ -202,7 +202,7 @@ export function calculateCCPCSalary(input: StructureInput): StructureResult {
 /**
  * Binary search: find salary such that salary + employer CPP + employer CPP2 + employer EI + employer QPIP = budget
  */
-function solveSalaryFromBudget(budget: number, province: Province, taxYear: TaxYear): number {
+export function solveSalaryFromBudget(budget: number, province: Province, taxYear: TaxYear): number {
   let low = 0;
   let high = budget;
 
@@ -219,7 +219,7 @@ function solveSalaryFromBudget(budget: number, province: Province, taxYear: TaxY
   return Math.round(((low + high) / 2) * 100) / 100;
 }
 
-function totalEmployerCost(salary: number, province: Province, taxYear: TaxYear): number {
+export function totalEmployerCost(salary: number, province: Province, taxYear: TaxYear): number {
   const cppEmp = calculateCPP(salary, taxYear, province);
   const cpp2Emp = calculateCPP2(salary, taxYear);
   const eiEmp = calculateEI(salary, taxYear, province);
@@ -371,7 +371,7 @@ export function calculateCCPCOptimal(input: StructureInput): StructureResult {
 /**
  * Evaluate the net take-home for a given salary/dividend split.
  */
-function evaluateMix(
+export function evaluateMix(
   salaryBudget: number,
   businessIncome: number,
   province: Province,
